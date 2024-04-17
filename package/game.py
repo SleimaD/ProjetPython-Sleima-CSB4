@@ -13,14 +13,14 @@ class Game:
 
 
     def start_game(self):
-        print("\n----------------Helloo-----------------")
-        print("- Welcome to the WandelGame ! -")
+        print("\n----------------👋Helloo👋-----------------")
+        print("- Welcome to the 👾WandelGame👾 ! -")
         print(" -    !!      Let's play    !!   -")
         print("-------------------------------------")
-        hero_name = input("\n (❁´◡`❁) Now, Enter your hero's name: ")
+        hero_name = input("\n (❁´◡`❁) Now, Enter your hero's name🦸🏽: ")
         while True: 
             try:
-                hero_class = int(input("Choose a category (1. Warrior, 2. Mage, 3. Archer): "))
+                hero_class = int(input("Choose a category (1. Warrior🪖 , 2. Mage🧙 , 3. Archer🏹): "))
                 if hero_class in [1, 2, 3]:
                     break 
                 else:
@@ -42,12 +42,12 @@ class Game:
 
     def main_menu(self):
         while self.hero.is_alive():
-            print("\n Main Menu:")
-            print("1. Explore Forest")
-            print("2. Visit Village")
-            print("3. Check Stats")
-            print("4. Check Inventory")
-            print("5. Quit Game")
+            print("\n Main Menu🏠 :")
+            print("1. Explore Forest🌳")
+            print("2. Visit Village🏙️")
+            print("3. Check Stats🧮")
+            print("4. Check Inventory🎒")
+            print("5. Quit Game 🚶")
             choice = input("Choose an option: ")
             if choice == '1':
                 self.explore_forest()
@@ -77,10 +77,10 @@ class Game:
                     print("\n You have defeated the Big Boss! You can continue exploring or return to the village.")
             
             print("\nWould you like to:")
-            print("1. Continue exploring")
-            print("2. Return to main menu")
-            print("3. Check inventory")
-            print("4. View stats")
+            print("1. Continue exploring🌳")
+            print("2. Return to main menu🏠")
+            print("3. Check inventory🎒")
+            print("4. View stats🧮")
             choice = input("Enter your choice (1-4): ")
             
             if choice == '1':
@@ -95,7 +95,7 @@ class Game:
                 elif event == "find":
                     self.random_find()
                 elif event == "nothing":
-                    print("\n Nothing happens...")
+                    print("\n Nothing happens...keep moving")
             elif choice == '2':
                 self.current_distance = 0
                 print("\n Returning to the main menu...")
@@ -132,9 +132,9 @@ class Game:
         print("\n Heeyy Welcome to the village. Here you can rest or buy items. 🤭")
         while True:
             print("\nVillage Menu:")
-            print("1. Sleep at the inn (Costs 10 Gold)")
-            print("2. Shop")
-            print("3. Return to Main Menu")
+            print("1. Sleep at the inn (Costs 10 Gold)💤")
+            print("2. Shop🛒")
+            print("3. Return to Main Menu🏠")
             choice = input("Choose an option: ")
             if choice == '1':
                 if self.hero.gold >= 10:
@@ -142,46 +142,46 @@ class Game:
                     self.hero.gold -= 10
                     print("\n You are fully rested.")
                 else:
-                    print("\n Not enough gold to sleep at the inn.")
+                    print("\n Not enough gold to sleep at the inn.💔")
             elif choice == '2':
                 self.shop()
             elif choice == '3':
                 break
             else:
-                print("\n Invalid choice.")
+                print("\n Invalid choice.💔")
 
 
     def check_inventory(self):
-        print("\n Inventory:")
+        print("\n Inventory🎒:")
         for item in self.hero.inventory.items:
             print(item.name)
         print(f"Gold: {self.hero.inventory.gold}")
 
 
     def combat(self, hero, enemy):
-        print(f" \n  Encountering 🤜{enemy.name}🤛 ")
+        print(f" \n  Encountering : 🤜{enemy.name}🤛 ")
         while hero.is_alive() and enemy.is_alive():
             hero.display_stats()
             enemy.display_stats()
-            action = input("\n Choose an action: Attack (a) / Use Item (i): ")
+            action = input("\n Choose an action: Attack (a)👊 / Use Item (i)🧰 : ")
             if action == 'a': 
                 self.attack(hero, enemy)
                 if not enemy.is_alive():
-                    print(f"{enemy.name} defeated!")
+                    print(f"{enemy.name} defeated!🥳")
                     hero.exp += enemy.exp_reward
                     hero.gold += enemy.gold_reward
                     if enemy.name == "Big Boss":
-                        print("You have won the game by defeating the Big Boss!")
+                        print("Yaaay You have won the game by defeating the Big Boss!🥳")
                         exit() 
                     return
             elif action == 'i':
                 item_name = input("Enter the item name to use: ")
                 if not hero.inventory.use_item(item_name, hero):
-                    print("Item not found or not applicable.")
+                    print("Item not found or not applicable.💔")
             if enemy.is_alive():
                 self.attack(enemy, hero)
                 if not hero.is_alive():
-                    print("Oh no 🥺 You have been defeated!")
+                    print("Oh no 🥺 You have been defeated!💔")
                     break
 
 
@@ -189,7 +189,7 @@ class Game:
         damage_reduction = defender.defense / (defender.defense + 60) 
         damage = max(1, int(attacker.attack * (1 - damage_reduction)))
         defender.hp -= damage
-        print(f"\n {attacker.name} attacks {defender.name} for {damage} damage!")
+        print(f"\n {attacker.name} attacks {defender.name} for {damage} damage!👊")
 
 
     def generate_enemy(self):
@@ -203,5 +203,22 @@ class Game:
         return Enemy(name, hp, attack, defense, exp_reward, gold_reward)
 
     
+    def random_find(self):
+        finds = ['gold', 'item', 'exp']
+        result = random.choice(finds)
+
+        if result == 'gold':
+            amount = random.randint(10, 50)
+            self.hero.inventory.gold += amount
+            print(f"hey check, You found {amount} gold ⭐!")
+        elif result == 'item':
+            item = Item("Potion")
+            self.hero.inventory.add_item(item)
+            print("hey check, You found a Potion ⚗️ !")
+            self.hero.hp = min(self.hero.hp + 20, self.hero.max_hp)
+        elif result == 'exp':
+            exp_amount = random.randint(5, 15)
+            self.hero.exp += exp_amount
+            print(f"check this, You gained {exp_amount} EXP 🪙 !")
 
     

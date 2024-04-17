@@ -14,7 +14,7 @@ class Game:
 
     def start_game(self):
         print("\n----------------Helloo-----------------")
-        print("- Welcome to Animal Crossing ! -")
+        print("- Welcome to the WandelGame ! -")
         print(" -    !!      Let's play    !!   -")
         print("-------------------------------------")
         hero_name = input("\n (❁´◡`❁) Now, Enter your hero's name: ")

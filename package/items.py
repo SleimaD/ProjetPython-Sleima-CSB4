@@ -1,7 +1,7 @@
 import random
 
 class Item:
-    def __init__(self, name, effect):
+    def __init__(self, name, effect=None):
         self.name = name
         self.effect = effect
 
@@ -16,7 +16,8 @@ class Inventory:
     def use_item(self, item_name, hero):
         for item in self.items:
             if item.name == item_name:
-                item.effect(hero)
+                if item.effect is not None:
+                    item.effect(hero)  #? Call the effect only if it is not None
                 self.items.remove(item)
                 return True
         return False

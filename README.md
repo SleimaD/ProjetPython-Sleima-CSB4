@@ -1,4 +1,4 @@
-# ![GitHub Actions CI](https://github.com/SleimaD/WandelGame/workflows/CI/badge.svg)
+[![GitHub Actions CI](https://github.com/SleimaD/WandelGame/workflows/CI/badge.svg)](https://github.com/SleimaD/WandelGame/actions)
 
 # WandelGame
 
